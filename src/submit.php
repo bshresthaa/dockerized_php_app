@@ -1,6 +1,7 @@
 <?php
 
 require_once "db.php"; 
+echo $_SERVER["DOCUMENT_ROOT"];
 
 //check if form was submitted.
 if($_SERVER["REQUEST_METHOD"] == "POST") { 
