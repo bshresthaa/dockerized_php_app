@@ -1,7 +1,8 @@
 <?php
 
 require_once "../databaseMigrate/db.php"; 
-echo $_SERVER["DOCUMENT_ROOT"];
+
+header("Content-Type:application/json"); 
 
 //check if form was submitted.
 if($_SERVER["REQUEST_METHOD"] == "POST") { 
@@ -22,15 +23,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssss",$name,$email,$dob,$gender); 
 
     if($stmt->execute()) { 
-        echo"data stored sucessfull"; 
+        $return = [
+            'message'=>'data store successfull',
+            'code'  => '200'
+        ];
+
+        echo json_encode($return); 
     }else { 
-        echo"Insert Failed."; 
+        echo json_encode([
+            "status" => "error",
+            "message" => "Insert failed"
+        ]);
     }
 
     $stmt->close(); 
     $conn->close(); 
 
 }else { 
-    echo "Invalid response"; 
+    $response = [ 
+        'message' => 'Invalid request',
+        'status' => 'error'
+    ]; 
+    echo json_encode($response); 
 }
 ?>
