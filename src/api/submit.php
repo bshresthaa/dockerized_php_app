@@ -1,6 +1,6 @@
 <?php
 
-require_once "db.php"; 
+require_once "../databaseMigrate/db.php"; 
 echo $_SERVER["DOCUMENT_ROOT"];
 
 //check if form was submitted.
