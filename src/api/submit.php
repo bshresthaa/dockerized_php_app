@@ -1,20 +1,33 @@
 <?php
 
-require_once "../databaseMigrate/db.php"; 
+require_once "../databaseMigrate/db.php";
+
+
+//check if form was submitted form the form submission site: 
+if($_SERVER["REQUEST_METHOD"] == "POST") { 
+
+}
 
 header("Content-Type:application/json"); 
 
 //check if form was submitted.
 if($_SERVER["REQUEST_METHOD"] == "POST") { 
 
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $dob = trim($_POST['dob'] ?? ''); 
+    $name = trim(htmlspecialchars($_POST['name'] ?? ''));
+    $email = trim(htmlspecialchars(($_POST['email'] ?? '')) );
+    $dob = trim(htmlspecialchars(($_POST['dob'] ?? '')) ); 
     $gender = trim($_POST['gender'] ?? '');  
     
-    if(empty($name) || empty($email)) { 
-        die("required fields email and name"); 
+    if(empty($name) || empty($email) || empty($dob)) { 
+        if(empty($name))
+        echo "required fields name"; 
+        if(empty($email))
+        echo "required fields email"; 
+        if(empty($dob))
+        echo "required fields dob"; 
+    die(); 
     }
+
 
     $stmt = $conn->prepare("INSERT INTO info (name, email, dob, gender) VALUES(?,?,?,? )"); 
     if(!$stmt) { 

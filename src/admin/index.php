@@ -13,7 +13,7 @@
 
         <h1>please submit your info here</h1>
 
-            <form id="userForm">
+            <form METHOD = "POST" action = "api/submit.php" id="userForm">
 
                 <div class = "form-group">
                    
