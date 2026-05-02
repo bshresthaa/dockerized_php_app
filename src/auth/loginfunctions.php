@@ -1,6 +1,8 @@
 <?php
 
-require "databaseMigrate/db.php"; 
+
+
+require "../databaseMigrate/db.php"; 
 
 if($_SERVER["REQUEST_METHOD"] == "POST") { 
 
@@ -30,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: /admin/view.php"); 
                 exit; 
         } else { 
-            die("something went wrong, try again."); 
+            die("wrong password!."); 
         }
 
 

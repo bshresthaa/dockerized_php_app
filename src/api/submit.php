@@ -3,11 +3,6 @@
 require_once "../databaseMigrate/db.php";
 
 
-//check if form was submitted form the form submission site: 
-if($_SERVER["REQUEST_METHOD"] == "POST") { 
-
-}
-
 header("Content-Type:application/json"); 
 
 //check if form was submitted.
