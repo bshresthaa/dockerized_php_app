@@ -1,11 +1,19 @@
 <?php
 
+session_start(); 
+
+if(!isset($_SESSION['user_id'])) { 
+    header("Location: ../index.php");
+    exit();
+}
+
 require_once "../databaseMigrate/db.php"; 
 
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
     $query = "SELECT * FROM info"; 
     $result = $conn->query($query);
+    echo "Welcome, " . $_SESSION['email'];
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -43,7 +51,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
         </table>
         <?php else:?>
             <p>No user found.</p>
-        <?php endif;?>   
+        <?php endif;?> 
+        
+    <a href="../auth/logout_handler.php">
+        <button type = "logout" > Logout</button>
+    </a>    
+
     </body>
     </html>
 
