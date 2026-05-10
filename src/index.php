@@ -13,7 +13,7 @@
 
         <h1>Login Here</h1>
 
-            <form METHOD = "POST" action = "auth/loginfunctions.php" id="userLogin"> 
+            <form METHOD = "POST" id="userLogin"> 
 
                 <div class = "form-group">
                    
@@ -24,6 +24,8 @@
                 <div class = "form-group">
                     <label for="Password">Password</label>
                     <input type="password" name="password" id="password" placeholder="password" required>
+                    
+                    <p id="errorMsg"></p>
                 </div>
                 
                 <br>
@@ -40,5 +42,5 @@
 
 </div>
 </body>
-<script src = "../script/script.js"></script>
+<script src = "/script/script.js"></script>
 </html>

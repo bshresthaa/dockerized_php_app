@@ -2,6 +2,8 @@
 session_start(); 
 require "../databaseMigrate/db.php"; 
 
+header("Content-Type: application/json");
+
 if($_SERVER["REQUEST_METHOD"] == "POST") { 
 
     /**
@@ -13,7 +15,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim(htmlspecialchars($_POST['password'])); 
 
         if(empty($email) || empty($password)) { 
-            die("password or email field empty!!"); 
+            echo json_encode([
+                "message" => "password cannot be empty",
+                "status" => "failed"
+            ]);
+            exit(); 
         }
 
         $raw_sql = $conn->prepare("select username, email, password from users where email = ? ");
@@ -23,7 +29,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc(); 
 
         if(empty($user)) { 
-            die("User does not exists. "); 
+            echo json_encode([
+                "message" => "User does not exists",
+                "status" => "failed"
+            ]);
+            exit();
         }
 
         
@@ -31,10 +41,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 $_SESSION['user_id'] = $user['username']; 
                 $_SESSION['email'] = $user['email']; 
-                header("Location: /admin/view.php"); 
+
+                echo json_encode([ 
+                    "message" => "login success",
+                    "status" => "success"
+                ]);
                 exit(); 
         } else { 
-            die("wrong password!."); 
+
+            echo json_encode([ 
+                "message" => "wrong password",
+                "status" => "failed"
+            ]);
+            exit(); 
+            
         }
 
 }else {
