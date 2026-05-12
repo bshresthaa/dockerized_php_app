@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if(empty($user)) { 
             echo json_encode([
-                "message" => "User does not exists",
+                "message" => "Username or password incorrect",
                 "status" => "failed"
             ]);
             exit();

@@ -13,7 +13,7 @@
 
         <h1>Create User</h1>
 
-            <form METHOD = "POST" action = "register_handler.php" id="userLogin"> 
+            <form METHOD = "POST" id="createAccount"> 
 
                 <div class = "form-group">
                     <label for="username">Username:</label>
@@ -31,22 +31,45 @@
                 </div>
 
                 <div class = "form-group">
+                    <label for="phonenumber">Phone number</label>
+                    <input type="phone" name="phonenumber" id="phonenumber" placeholder="" required>
+                </div>
+
+                <div class = "form-group">
                     <label for="dob">Date of birth</label>
                     <input type="date" name="dob" id="dob"  required>
                 </div>
-
 
                 <button type = "submit">Create Account</button>
                 <br>
                 <br>
                 <a href="../index.php" class=""> Back </a>
             </form>
-
-
     </div>
 
 </div>
 </body>
-<script src = "../script/script.js"></script>
+<script>
+    document.getElementById("createAccount").addEventListener("submit", function(e) { 
+        e.preventDefault(); 
+
+        const formData = new FormData(this); 
+
+        fetch("register_handler.php", { 
+            method : "POST",
+            body : formData
+        })
+        .then(res=>res.json())
+        .then( data=> { 
+            if(data.status === "success"){ 
+                window.location.href = "email_verification.php";
+            } else { 
+                //TODO
+                alert(data.message);
+            }
+        })
+        .catch (err=>console.error(err)); 
+    }); 
+</script>
 </html>
 

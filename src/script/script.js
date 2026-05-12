@@ -20,3 +20,9 @@ document.getElementById("userLogin").addEventListener("submit", function(e) {
 });
 
 
+document.getElementById("createAccount").addEventListener("click", function(e) { 
+
+    
+})
+
+
