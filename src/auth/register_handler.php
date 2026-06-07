@@ -45,25 +45,25 @@ if($sql->execute()) {
     $otp_sql->bind_param('is', $otp,$email);
     $otp_sql->execute();  
 
-    $emailBody = "
-        <h2>Your OTP code</h2>
-        <p>Here is your OTP code to verify your account: </p>
-        <h1>$otp</h1>
-    "; 
+    if($email == getenv('EMAIL')) { 
+        $emailBody = "
+            <h2>Your OTP code</h2>
+            <p>Here is your OTP code to verify your account: </p>
+            <h1>$otp</h1>
+        "; 
 
-    $resend->emails->send([
-      'from' => 'onboarding@resend.dev',
-      'to' => $email,
-      'subject' => 'YOUR OTP CODE',
-      'html' => $emailBody
-    ]);
-
+        $resend->emails->send([
+        'from' => 'onboarding@resend.dev',
+        'to' => $email,
+        'subject' => 'YOUR OTP CODE',
+        'html' => $emailBody
+        ]);
+    };
     echo json_encode([
         "message" => "Successfully registered",
         "status" => "success"
-    ]);
-
-    }
+    ]); 
+}
 }else{ 
     error_log("user creation failed"); 
     echo json_encode([
